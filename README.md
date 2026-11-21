@@ -1,21 +1,21 @@
 # Architecture First Coding
 
-[中文说明](README.zh-CN.md) · [Skill](skills/architecture-first-coding/SKILL.md) · [Architecture examples](examples/README.md) · [MIT License](LICENSE)
+[Chinese version](README.zh-CN.md) · [Original skill (Chinese)](skills/architecture-first-coding/SKILL.md) · [Architecture examples](examples/README.en.md) · [MIT License](LICENSE)
 
 A coding-agent skill for designing game architecture and other software before implementation. Establish responsibilities, authoritative state owners, concrete contracts, lifecycle and dependency direction, then assess the implementation against those decisions.
 
-This repository contains the original skill, supporting references and architecture-only case studies from two Godot games: **余烬庭院 · 二十波** and **街坊商场**. The case studies contain explanatory text, responsibility tables and architecture images. No game implementation, runnable models, pseudocode or execution scripts are included in the current tree.
+This repository contains the original skill, supporting references and architecture-only case studies from two Godot games: **Ember Garden · Twenty Waves** and **Neighborhood Mall**. The case studies contain explanatory text, responsibility tables and architecture images. No game implementation, runnable models, pseudocode or execution scripts are included in the current tree.
 
 ## Understand the workflow
 
-![From a feature request to an accountable architecture](examples/diagrams/skill-workflow.png)
+![From a feature request to an accountable architecture](examples/diagrams/skill-workflow-en.png)
 
-Read [how to apply the skill](examples/README.md), then follow either complete case study. The skill instructions and detailed case studies are currently in Chinese.
+Read [how to apply the skill](examples/README.en.md), then follow either complete case study. This introduction, the English case studies and their diagrams are entirely in English. The original skill instructions and supporting references are maintained separately in Chinese.
 
 | Case study | Whole-game coverage | Decisions to look for |
 | --- | --- | --- |
-| [余烬庭院 · 二十波](examples/survivor/README.md) | Session phases, combat orchestration, actors, encounters, equipment, rewards, economy, profiles, queries and traces | Separate orchestration from rule ownership; restore a wave without rewinding the attempt identity; share authoritative results with presentation |
-| [街坊商场](examples/mall/README.md) | Operating session, facilities, routes, ledger, staff, admissions, visits, transport, progression, events and persistence | One owner per business state; validate construction at confirmation; separate simulation progress, display animation and save completion |
+| [Ember Garden · Twenty Waves](examples/survivor/README.en.md) | Session phases, combat orchestration, actors, encounters, equipment, rewards, economy, profiles, queries and traces | Separate orchestration from rule ownership; restore a wave without rewinding the attempt identity; share authoritative results with presentation |
+| [Neighborhood Mall](examples/mall/README.en.md) | Operating session, facilities, routes, ledger, staff, admissions, visits, transport, progression, events and persistence | One owner per business state; validate construction at confirmation; separate simulation progress, display animation and save completion |
 
 ## Core design choices
 
@@ -26,7 +26,7 @@ Read [how to apply the skill](examples/README.md), then follow either complete c
 - Third-party selection considers compatibility and licensing for the intended target and distribution.
 - Scale the design to the change. Five responsibilities do not require five empty directories.
 
-The default is a **strict downward five-layer architecture**: interface → application → core → data → platform. Storage contracts live in the data layer. This differs from architectures where data adapters implement domain-declared ports. Existing architectures should be mapped and respected. See the [precise dependency rules](skills/architecture-first-coding/references/layered-architecture.md).
+The default is a **strict downward five-layer architecture**: interface → application → core → data → platform. Storage contracts live in the data layer. This differs from architectures where data adapters implement domain-declared ports. Existing architectures should be mapped and respected. See the [original dependency reference (Chinese)](skills/architecture-first-coding/references/layered-architecture.md).
 
 ## Install and use
 

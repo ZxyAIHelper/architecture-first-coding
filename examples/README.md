@@ -2,6 +2,8 @@
 
 [余烬庭院 · 二十波：整体架构](survivor/README.md) · [街坊商场：整体架构](mall/README.md) · [返回仓库](../README.zh-CN.md)
 
+[English version](README.en.md)
+
 先看整体职责与状态所有者，再沿一条玩家操作理解模块如何合作，最后看新增功能会影响什么。案例只发布架构说明与图片，不包含实现或伪代码。
 
 ![skill 应用流程](diagrams/skill-workflow.png)
