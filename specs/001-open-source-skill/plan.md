@@ -9,6 +9,7 @@
 - examples/mall/README.md：《街坊商场》整体架构。涵盖界面、经营会话、经营局、设施与通路、账本、员工、客流交通、成长事件、存档和平台边界。
 - examples/README.en.md 与两个案例的 README.en.md：独立英文架构说明，英文入口默认链接这些版本。
 - examples/diagrams：提交中英文各三张 PNG，分别为 skill 应用流程及两个游戏的整体职责图。英文页面仅嵌入带 -en 后缀的英文图片。图按系统族聚合，不表示穷举源码导入或全部运行时边。
+- examples/diagrams/layered-architecture-en.png：英文 README 的通用五层职责图。主链从接口到平台；旁注列出应用对数据/平台、核心对纯技术平台能力的允许使用，装配入口独立标注。只提交 PNG，不提交绘图程序。
 
 ## 内容与图示设计
 

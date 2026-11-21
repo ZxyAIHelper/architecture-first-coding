@@ -28,6 +28,10 @@ Read [how to apply the skill](examples/README.en.md), then follow either complet
 
 The default is a **strict downward five-layer architecture**: interface → application → core → data → platform. Storage contracts live in the data layer. This differs from architectures where data adapters implement domain-declared ports. Existing architectures should be mapped and respected. See the [original dependency reference (Chinese)](skills/architecture-first-coding/references/layered-architecture.md).
 
+![Five-layer architecture: responsibilities, authoritative ownership and downward dependencies](examples/diagrams/layered-architecture-en.png)
+
+Arrows show active calls or source dependencies. The side notes identify allowed direct access; returning a requested result does not create an upward business call. Composition stays outside the five layers.
+
 ## Install and use
 
 Download or clone this repository. Copy only the folder named architecture-first-coding inside skills into your personal Codex skills directory: the skills subdirectory of CODEX_HOME, or the skills subdirectory inside your home folder's .codex directory when CODEX_HOME is unset. Back up an existing customized installation before replacing it.
