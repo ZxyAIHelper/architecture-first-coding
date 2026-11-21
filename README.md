@@ -1,80 +1,47 @@
 # Architecture First Coding
 
-[中文说明](README.zh-CN.md) · [Skill](skills/architecture-first-coding/SKILL.md) · [Examples](examples/README.md) · [MIT License](LICENSE)
+[中文说明](README.zh-CN.md) · [Skill](skills/architecture-first-coding/SKILL.md) · [Architecture examples](examples/README.md) · [MIT License](LICENSE)
 
-A reusable coding-agent skill for designing game architecture and other software before implementation. Establish responsibilities, authoritative state owners, concrete contracts, lifecycle and dependency direction; then check the real implementation against those decisions.
+A coding-agent skill for designing game architecture and other software before implementation. Establish responsibilities, authoritative state owners, concrete contracts, lifecycle and dependency direction, then assess the implementation against those decisions.
 
-The skill grew through work on two Godot games: a wave-survival game and a shopping-mall management game. The examples below distill decisions from those projects into original, engine-independent teaching models. The skill itself is broader than games; its current instructions are in Chinese, with an English trigger description.
+This repository contains the original skill, supporting references and architecture-only case studies from two Godot games: **余烬庭院 · 二十波** and **街坊商场**. The case studies contain explanatory text, responsibility tables and architecture images. No game implementation, runnable models, pseudocode or execution scripts are included in the current tree.
 
-## What it changes
+## Understand the workflow
 
-- Give each state and rule one authoritative owner. Views submit commands and display authoritative results.
-- Distinguish source dependencies from runtime calls. Callbacks and event buses can conceal upward dependencies.
-- Define actual command/query contracts, failure semantics and lifecycle before cross-module implementation.
-- Place shared capabilities at a legitimate layer; avoid global writable contexts and duplicate formulas.
-- Check third-party compatibility and licensing before integration, proportional to project needs.
-- Scale the work: small edits need a boundary check, larger changes need explicit design. Five responsibilities do not require five empty directories.
+![From a feature request to an accountable architecture](examples/diagrams/skill-workflow.png)
 
-The default is a **strict downward five-layer architecture**: interface → application → core → data → platform. Storage contracts live in the data layer. This deliberately differs from architectures where data adapters implement ports declared by the domain. Existing architectures should be mapped and respected rather than silently replaced. Read the [precise dependency rules](skills/architecture-first-coding/references/layered-architecture.md) before applying the default.
+Read [how to apply the skill](examples/README.md), then follow either complete case study. The skill instructions and detailed case studies are currently in Chinese.
 
-## Install in Codex
-
-Clone the repository, then copy **only** `skills/architecture-first-coding` into your personal skills directory. Preserve any local customization before replacing an existing installation.
-
-PowerShell:
-
-```powershell
-git clone https://github.com/ZxyAIHelper/architecture-first-coding.git
-$skillRoot = if ($env:CODEX_HOME) { Join-Path $env:CODEX_HOME 'skills' } else { Join-Path $env:USERPROFILE '.codex/skills' }
-New-Item -ItemType Directory -Path $skillRoot -Force | Out-Null
-Copy-Item -LiteralPath './architecture-first-coding/skills/architecture-first-coding' -Destination $skillRoot -Recurse
-```
-
-macOS / Linux:
-
-```sh
-git clone https://github.com/ZxyAIHelper/architecture-first-coding.git
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-cp -R architecture-first-coding/skills/architecture-first-coding "${CODEX_HOME:-$HOME/.codex}/skills/"
-```
-
-The Markdown package can also be adapted to other agents that support `SKILL.md`; discovery and installation vary by agent.
-
-## Try it
-
-```text
-Use $architecture-first-coding to design a wave-survival game's
-restart-current-wave feature. Identify the phase owner, checkpoint contents,
-restore contract, feedback identity and failure cases before implementing it.
-```
-
-```text
-Use $architecture-first-coding to review a mall game's construction flow.
-Trace quote → confirm → placement → payment. Check stale quotes, duplicate
-confirmation, ownership of prices and balance, and snapshot mutability.
-```
-
-## Two worked examples
-
-| Example | Main decision | Run |
+| Case study | Whole-game coverage | Decisions to look for |
 | --- | --- | --- |
-| [Wave survival / 土豆兄弟](examples/survivor/README.md) | Session owns phase and restart count; battle owns combat state; restore an opening checkpoint without re-awarding entry income | `node examples/survivor/demo.mjs` |
-| [Mall management / 模拟经营商场](examples/mall/README.md) | Core recomputes quotes and validates revision before synchronous placement and payment | `node examples/mall/demo.mjs` |
+| [余烬庭院 · 二十波](examples/survivor/README.md) | Session phases, combat orchestration, actors, encounters, equipment, rewards, economy, profiles, queries and traces | Separate orchestration from rule ownership; restore a wave without rewinding the attempt identity; share authoritative results with presentation |
+| [街坊商场](examples/mall/README.md) | Operating session, facilities, routes, ledger, staff, admissions, visits, transport, progression, events and persistence | One owner per business state; validate construction at confirmation; separate simulation progress, display animation and save completion |
 
-Each includes responsibility and ownership tables, concrete contracts, a full player flow, failure boundaries and an executable model. The models omit game assets, original content tables, engine scenes and full save systems. They illustrate architecture, not complete games or exact reproductions of either project.
+## Core design choices
 
-## Verify
+- Each state and rule has one authoritative owner. Views submit intent and display authoritative results.
+- Source dependencies and runtime calls both matter. Callbacks and event buses can hide upward dependencies.
+- Cross-module work needs concrete contracts, lifecycle and failure semantics before implementation.
+- Shared capabilities belong at a legitimate layer; avoid writable global contexts and duplicated formulas.
+- Third-party selection considers compatibility and licensing for the intended target and distribution.
+- Scale the design to the change. Five responsibilities do not require five empty directories.
 
-Use Node.js 22 or newer; there are no npm dependencies.
+The default is a **strict downward five-layer architecture**: interface → application → core → data → platform. Storage contracts live in the data layer. This differs from architectures where data adapters implement domain-declared ports. Existing architectures should be mapped and respected. See the [precise dependency rules](skills/architecture-first-coding/references/layered-architecture.md).
 
-```sh
-node scripts/verify.mjs
-```
+## Install and use
 
-This checks package links, the publication allowlist and accidental local-path/credential patterns, then runs the behavioral tests for both teaching models. It does not prove every architecture decision correct, validate agent behavior, or run the original games. GitHub Actions runs the same checks.
+Download or clone this repository. Copy only the folder named architecture-first-coding inside skills into your personal Codex skills directory: the skills subdirectory of CODEX_HOME, or the skills subdirectory inside your home folder's .codex directory when CODEX_HOME is unset. Back up an existing customized installation before replacing it.
 
-Contributions should preserve the skill's proportional workflow and make examples demonstrate a concrete architectural decision. Include relevant behavioral verification when changing executable examples.
+Ask your agent to use **$architecture-first-coding** when designing or reviewing a change. For example, request an architectural design for wave restoration, or review the ownership and failure boundaries of a construction transaction. The case studies show what the resulting architecture deliverable should explain; they are not mandatory templates for every small edit.
+
+Other agents supporting SKILL.md can use the package through their own discovery mechanisms.
+
+## Scope of the examples
+
+The diagrams group related capabilities and show responsibility boundaries. They are not exhaustive import graphs, class diagrams or claims that every line in the original projects has passed a new architecture audit. They are based on the relevant specifications, composition and ownership boundaries inspected on 2026-11-21. Each case study states its evidence and limits.
+
+The original skill and its four reference files remain unchanged. Contributions should keep examples focused on architecture and explain an observable ownership, dependency, lifecycle or recovery decision.
 
 ## License
 
-The skill, documentation and newly authored example code in this repository are released under the [MIT License](LICENSE). The referenced games, their assets and third-party content are outside this repository's distribution.
+The skill, documentation and original architecture diagrams in this repository use the [MIT License](LICENSE). Game implementation, assets, content tables, saves and third-party research material are outside this distribution.
