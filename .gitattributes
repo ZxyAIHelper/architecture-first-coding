@@ -1,0 +1,3 @@
+# Keep repository examples portable while preserving original skill bytes exactly.
+* text=auto eol=lf
+skills/architecture-first-coding/** -text
